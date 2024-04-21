@@ -1,4 +1,5 @@
 #pragma once
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include <iostream>
 #include <Windows.h>
@@ -12,9 +13,24 @@ namespace Project1 {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	double CalculateFunction(double t) {
-		const double phi = 1.618; // Replace with your desired value of phi
-		return phi - (1.0 / t);
+	long double calculateExpression(double x, double y, double z) {
+		double numeratorPhi = exp(abs(x - y)) * pow(abs(x - y), x + y);
+		double denominatorPhi = atan(x) + atan(z);
+		double fractionPhi = numeratorPhi / denominatorPhi;
+
+		double rootPhi = cbrt(pow(x, 6) + pow(log(y), 2));
+
+		double phi = fractionPhi + rootPhi;
+
+		double numeratorFT = 2 * cos(x - M_PI / 6);
+		double denominatorFT = 0.5 + pow(sin(y), 2);
+		double FT = numeratorFT / denominatorFT;
+		double fraction = (1 + (pow(z, 2) / (3 - (pow(z, 2) / 5))));
+		double T = FT * fraction;
+
+		double result = phi - (1 / T);
+
+		return result;
 	}
 
 	/// <summary>
@@ -50,6 +66,17 @@ namespace Project1 {
 	private: System::Windows::Forms::TextBox^ textBox2;
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart1;
+	private: System::Windows::Forms::TextBox^ textBox3;
+
+
+	private: System::Windows::Forms::Label^ label5;
+	private: System::Windows::Forms::Label^ label6;
+	private: System::Windows::Forms::TextBox^ textBox5;
+
+
+	private: System::Windows::Forms::Label^ label8;
+	private: System::Windows::Forms::Label^ label9;
+	private: System::ComponentModel::BackgroundWorker^ backgroundWorker1;
 
 	private:
 		/// <summary>
@@ -74,6 +101,13 @@ namespace Project1 {
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
+			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
+			this->label8 = (gcnew System::Windows::Forms::Label());
+			this->label9 = (gcnew System::Windows::Forms::Label());
+			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -82,9 +116,9 @@ namespace Project1 {
 			this->label1->AutoSize = true;
 			this->label1->Location = System::Drawing::Point(12, 9);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(247, 13);
+			this->label1->Size = System::Drawing::Size(249, 13);
 			this->label1->TabIndex = 0;
-			this->label1->Text = L"¬ведите желаемый диапазон t (включительно):";
+			this->label1->Text = L"¬ведите желаемый диапазон x (включительно):";
 			// 
 			// label2
 			// 
@@ -134,21 +168,77 @@ namespace Project1 {
 			this->chart1->ChartAreas->Add(chartArea1);
 			legend1->Name = L"Legend1";
 			this->chart1->Legends->Add(legend1);
-			this->chart1->Location = System::Drawing::Point(12, 201);
+			this->chart1->Location = System::Drawing::Point(12, 158);
 			this->chart1->Name = L"chart1";
 			series1->ChartArea = L"ChartArea1";
 			series1->Legend = L"Legend1";
 			series1->Name = L"Series1";
 			this->chart1->Series->Add(series1);
-			this->chart1->Size = System::Drawing::Size(312, 300);
+			this->chart1->Size = System::Drawing::Size(909, 458);
 			this->chart1->TabIndex = 6;
 			this->chart1->Text = L"chart1";
+			// 
+			// textBox3
+			// 
+			this->textBox3->Location = System::Drawing::Point(326, 35);
+			this->textBox3->Name = L"textBox3";
+			this->textBox3->Size = System::Drawing::Size(100, 20);
+			this->textBox3->TabIndex = 11;
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Location = System::Drawing::Point(297, 38);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(23, 13);
+			this->label5->TabIndex = 8;
+			this->label5->Text = L"ќт:";
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(297, 9);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(249, 13);
+			this->label6->TabIndex = 7;
+			this->label6->Text = L"¬ведите желаемый диапазон y (включительно):";
+			// 
+			// textBox5
+			// 
+			this->textBox5->Location = System::Drawing::Point(614, 35);
+			this->textBox5->Name = L"textBox5";
+			this->textBox5->Size = System::Drawing::Size(100, 20);
+			this->textBox5->TabIndex = 16;
+			// 
+			// label8
+			// 
+			this->label8->AutoSize = true;
+			this->label8->Location = System::Drawing::Point(585, 38);
+			this->label8->Name = L"label8";
+			this->label8->Size = System::Drawing::Size(23, 13);
+			this->label8->TabIndex = 13;
+			this->label8->Text = L"ќт:";
+			// 
+			// label9
+			// 
+			this->label9->AutoSize = true;
+			this->label9->Location = System::Drawing::Point(585, 9);
+			this->label9->Name = L"label9";
+			this->label9->Size = System::Drawing::Size(249, 13);
+			this->label9->TabIndex = 12;
+			this->label9->Text = L"¬ведите желаемый диапазон z (включительно):";
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(336, 550);
+			this->ClientSize = System::Drawing::Size(942, 628);
+			this->Controls->Add(this->textBox5);
+			this->Controls->Add(this->label8);
+			this->Controls->Add(this->label9);
+			this->Controls->Add(this->textBox3);
+			this->Controls->Add(this->label5);
+			this->Controls->Add(this->label6);
 			this->Controls->Add(this->chart1);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->textBox2);
@@ -165,15 +255,17 @@ namespace Project1 {
 		}
 #pragma endregion
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-		double lowerBound = Convert::ToDouble(textBox1->Text);
-		double upperBound = Convert::ToDouble(textBox2->Text);
+		double lowerBoundX = Convert::ToDouble(textBox1->Text);
+		double upperBoundX = Convert::ToDouble(textBox2->Text);
+		double y = Convert::ToDouble(textBox3->Text);
+		double z = Convert::ToDouble(textBox5->Text);
 
 		chart1->Series->Clear();
 		chart1->Series->Add("Function Values");
 
-		for (double t = lowerBound; t <= upperBound; t += 0.1) {
-			double result = CalculateFunction(t);
-			chart1->Series["Function Values"]->Points->AddXY(t, result);
+		for (double x = lowerBoundX; x <= upperBoundX; x += 0.1) {
+			long double result = calculateExpression(x, y, z);
+			chart1->Series["Function Values"]->Points->AddXY(x, result);
 		}
 		chart1->Update();
 	}
