@@ -14,17 +14,17 @@ namespace Project1 {
 	using namespace System::Drawing;
 
 	long double calculateExpression(double x, double y, double z) {
-		double numeratorPhi = exp(abs(x - y)) * pow(abs(x - y), x + y);
-		double denominatorPhi = atan(x) + atan(z);
-		double fractionPhi = numeratorPhi / denominatorPhi;
+		double upPhi = exp(abs(x - y)) * pow(abs(x - y), x + y);
+		double downPhi = atan(x) + atan(z);
+		double fractionPhi = upPhi / downPhi;
 
 		double rootPhi = cbrt(pow(x, 6) + pow(log(y), 2));
 
 		double phi = fractionPhi + rootPhi;
 
-		double numeratorFT = 2 * cos(x - M_PI / 6);
-		double denominatorFT = 0.5 + pow(sin(y), 2);
-		double FT = numeratorFT / denominatorFT;
+		double upFT = 2 * cos(x - M_PI / 6);
+		double downFT = 0.5 + pow(sin(y), 2);
+		double FT = upFT / downFT;
 		double fraction = (1 + (pow(z, 2) / (3 - (pow(z, 2) / 5))));
 		double T = FT * fraction;
 
@@ -199,9 +199,9 @@ namespace Project1 {
 			this->label6->AutoSize = true;
 			this->label6->Location = System::Drawing::Point(297, 9);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(249, 13);
+			this->label6->Size = System::Drawing::Size(110, 13);
 			this->label6->TabIndex = 7;
-			this->label6->Text = L"¬ведите желаемый диапазон y (включительно):";
+			this->label6->Text = L"¬ведите значение y:";
 			// 
 			// textBox5
 			// 
@@ -224,9 +224,9 @@ namespace Project1 {
 			this->label9->AutoSize = true;
 			this->label9->Location = System::Drawing::Point(585, 9);
 			this->label9->Name = L"label9";
-			this->label9->Size = System::Drawing::Size(249, 13);
+			this->label9->Size = System::Drawing::Size(110, 13);
 			this->label9->TabIndex = 12;
-			this->label9->Text = L"¬ведите желаемый диапазон z (включительно):";
+			this->label9->Text = L"¬ведите значение z:";
 			// 
 			// MyForm
 			// 
